@@ -16,9 +16,11 @@ require('./config/express')(app, config);
 require('./config/routes')(app);
 
 app.use('/api', require('./config/routes'));
+
+app.listen(config.port, config.host);
  
-var server = http.createServer(app);
-server.listen(config.port, config.host);
+//var server = http.createServer(app);
+//server.listen(config.port, config.host);
 
 console.log('App started on port '+ config.port);
 
