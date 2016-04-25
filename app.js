@@ -1,6 +1,5 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var http = require('http');
 var config  = require('./config/config');
 
 require('./config/db')(config);
@@ -14,8 +13,6 @@ require(modelsPath + '/request');
 
 require('./config/express')(app, config);
 require('./config/routes')(app);
-
-app.use('/api', require('./config/routes'));
 
 app.listen(config.port, config.host);
 
