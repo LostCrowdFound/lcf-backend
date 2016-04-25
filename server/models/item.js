@@ -8,7 +8,7 @@ var item = new Schema({
 		brand: {type: String, required: true},
 		locLat: {type: String, required: true},
 		locLon: {type: String, required: true},
-		//date: {type: Date, default: Date.now }
+		date: {type: Date, default: Date.now }
 });
 
 var model = mongoose.model('item', item);

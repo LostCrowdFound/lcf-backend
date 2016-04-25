@@ -6,7 +6,7 @@ var request = new Schema({
 		description: {type: String, required: true},
 		item: {type: Schema.Types.ObjectId, ref: 'item'},
 		description: {type: String, required: true},
-		//date: {type: Date, default: Date.now }
+		date: {type: Date, default: Date.now }
 });
 
 var model = mongoose.model('request', request);

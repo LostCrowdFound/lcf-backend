@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var user = mongoose.model('user');
-//var user = require('../models/user');
 
 exports.findAll = function(req, res) {
 	user.find({}, function(err, users) {

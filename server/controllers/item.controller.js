@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var item = mongoose.model('item');
-//var user = require('../models/item');
 
 exports.findAll = function(req, res) {
 	item.find(function(err, items) {
@@ -34,3 +33,7 @@ exports.remove = function(req, res) {
    		});
   	});
 };
+
+function handleError(res, err) {
+  return res.send(500, err);
+}
