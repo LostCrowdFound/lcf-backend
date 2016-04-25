@@ -3,7 +3,13 @@
   "version": "0.0.1",
   "description": "",
   "main": "server.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-cache": "^0.4.4",
+    "gulp-jshint": "^2.0.0",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -18,8 +24,7 @@
     "url": "https://github.com/LostCrowdFound/LostCrowdFound/issues"
   },
   "homepage": "https://github.com/LostCrowdFound/LostCrowdFound#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "keywords": [
     "lost",
     "crowd",
