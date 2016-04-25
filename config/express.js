@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var compression = require('compression');
 var errorHandler = require('errorhandler');
-var methodOverride = require('method-override')
+var methodOverride = require('method-override');
 
 
 module.exports = function(app, config) {
