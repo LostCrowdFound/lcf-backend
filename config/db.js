@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 
-// http://g00glen00b.be/mean-mvc/
 module.exports = function(config) {
   mongoose.connect(config.db);
   var db = mongoose.connection;
