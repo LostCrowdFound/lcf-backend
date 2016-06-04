@@ -1,21 +1,55 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var config  = require('./config/config');
+var Config = require('./config/config.js');
 
-require('./config/db')(config);
+/**
+ * db connect
+ */
+
+var mongoose = require('mongoose');
+mongoose.connect([Config.db.host, '/', Config.db.name].join(''),{
+    //eventually it's a good idea to make this secure
+    user: Config.db.user,
+    pass: Config.db.pass
+});
+
+/**
+ * create application
+ */
+
+var express = require('express');
+var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var app = express();
 
-var modelsPath = __dirname + '/server/models';
-require(modelsPath + '/item');
-require(modelsPath + '/user');
-require(modelsPath + '/request');
+/**
+ * app setup
+ */
 
-require('./config/express')(app, config);
-require('./config/routes')(app);
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
-app.listen(config.port, config.host);
 
-console.log('App started on port '+ config.port);
+//passport
+
+var passport = require('passport');
+var jwtConfig = require('./passport/jwtConfig');
+
+app.use(passport.initialize());
+jwtConfig(passport);
+
+
+/**
+ * routing
+ */
+
+var userRoutes = require("./user/userRoutes");
+var itemRoutes = require("./item/itemRoutes");
+
+app.use('/api', itemRoutes(passport));
+app.use('/', userRoutes(passport));
+
 
 module.exports = app;
