@@ -39,7 +39,7 @@ module.exports.login = function(req, res){
 
 };
 
-module.exports.signup = function(req, res){
+module.exports.signup = function(req, res) {
     console.log("Trying to signup user: "+req.body.username);
     if(!req.body.username){
         res.status(400).send('username required');
@@ -50,20 +50,32 @@ module.exports.signup = function(req, res){
         return;
     }
 
-    var user = new User();
+    User.findOne({username: req.body.username}, function(err, resUser) {
 
-    user.username = req.body.username;
-    user.password = req.body.password;
-    user.email = req.body.email;
-
-    user.save(function(err) {
         if (err) {
             res.status(500).send(err);
             return;
         }
 
-        res.status(201).json({token: createToken(user)});
-    });
+        if (resUser) {
+            res.status(401).send('Username already taken!');
+            return;
+        } else {
+            var user = new User();
+
+            user.username = req.body.username;
+            user.password = req.body.password;
+            user.email = req.body.email;      
+
+            user.save(function(err) {
+                if (err) {
+                    res.status(500).send(err);
+                    return;
+                }
+                res.status(201).json(); //{token: createToken(user)}
+            });        
+        }
+    });   
 };
 
 module.exports.unregister = function(req, res) {
