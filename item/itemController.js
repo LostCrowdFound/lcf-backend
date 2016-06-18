@@ -13,15 +13,14 @@ exports.postItem = function (req, res) {
   });
 };
 
-function isPointInRadius(point, center, radius) {
+function isPointInRadius(item, query) {
+  //console.log('is Point in radius item: ' + item);
+  //console.log('Query lat: ' + this.lat + ' lon: ' + this.lon + ' radius: ' + this.radius);
   return true;
 }
 
 // Create endpoint /api/items for GET
 exports.getItems = function (req, res) {
-  // if (!req.user.equals(movie.user)) {
-  //       res.sendStatus(401);
-  // }
   Item.find({
     type: req.query.type,
     brand: req.query.brand,
@@ -32,8 +31,10 @@ exports.getItems = function (req, res) {
         return res.status(500).send(err);
       }
 
+      var filteredItems = items.filter(isPointInRadius, req.query);
+
       console.log('Returning items: ' + items);
-      res.status(200).json(items);
+      res.status(200).json(filteredItems);
     }
   );
 };
