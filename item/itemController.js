@@ -13,22 +13,22 @@ exports.postItem = function (req, res) {
   });
 };
 
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   var R = 6371; // Radius of the earth in km
-  var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+  var dLon = deg2rad(lon2 - lon1);
+  var a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c; // Distance in km
   return d;
 }
 
 function deg2rad(deg) {
-  return deg * (Math.PI/180)
+  return deg * (Math.PI / 180);
 }
 
 function isPointInRadius(item, query) {
@@ -38,8 +38,8 @@ function isPointInRadius(item, query) {
   //console.log('Result distance: '+getDistanceFromLatLonInKm(this.lat, this.lon, item.lat, item.lon)+' vs radius: '+this.radius/1000);
   //console.log('----------------------------------------');
   var distanceInkm = getDistanceFromLatLonInKm(this.lat, this.lon, item.lat, item.lon);
-if(distanceInkm < this.radius/1000){
-  return true;
+  if (distanceInkm < this.radius / 1000) {
+    return true;
   }
 }
 
@@ -54,8 +54,7 @@ exports.getItems = function (req, res) {
       if (err) {
         return res.status(500).send(err);
       }
-console.log('Searched for: ' + req.query.type + req.query.brand + req.query.name);
-console.log('Returning items prefilter: ' + items);
+
       var filteredItems = items.filter(isPointInRadius, req.query);
 
       console.log('Returning items: ' + filteredItems);

@@ -14,17 +14,17 @@ exports.items = [
 
 exports.users = [
   {
-    name: 'Soenke',
+    username: 'Soenke',
     email: 'soenke.erfkamp@tum.de',
     password: 'muchpwverysecure',
   },
   {
-    name: 'guest',
+    username: 'guest',
     email: 'guest@tum.de',
     password: 'guest',
   },
   {
-    name: 'admin',
+    username: 'admin',
     email: 'admin@tum.de',
     password: 'admin',
   },

@@ -13,7 +13,7 @@ function requestRoutes(passport) {
   router.use(mw.unless({ method: ['OPTIONS'] }));
 
   router.route('/requests')
-      .post(requestController.postRequest)
+      .post(requestController.postRequest);
 
   return router;
 }

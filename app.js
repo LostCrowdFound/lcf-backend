@@ -1,6 +1,7 @@
 var Config = require('./config/config');
 var databaseSeed = require('./config/databaseSeed');
 var User = require('./user/userSchema');
+var Item = require('./item/itemSchema');
 
 /**
  * db connect
@@ -15,12 +16,22 @@ mongoose.connect([Config.db.host, '/', Config.db.name].join(''), {
 
     //TO DO : DROP DATABASE
 
-    User.create(databaseSeed.users, function (err, users) {
-      // users returns an array of the created user.
-      // Need to use that to create items since we need the reference.
+    for (var u = 0; u < databaseSeed.users.length; u++) {
+      var tempUser = new User(databaseSeed.users[u]);
+      tempUser.save();
+    }
 
-      // Items.create
-          // Request create usw..
+    User.find(function (err, users) {
+      console.log('Creating users...');
+      Item.create(databaseSeed.items, function (err, items) {
+        console.log('Creating items...');
+        for (var i = 0; i < databaseSeed.items.length; i++) {
+          var randomUserIndex = Math.floor((Math.random() * databaseSeed.users.length));
+          Item.findByIdAndUpdate(items[i]._id, { $set: { userId: users[randomUserIndex] } }, function (err, item) {
+            if (err) return handleError(err);
+          });
+        }
+      });
     });
   }
 );
@@ -42,7 +53,7 @@ var app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
 
 

@@ -5,10 +5,13 @@ var itemSchema = mongoose.Schema({
   brand: String,
   name: String,
   date: Date,
-  email: String,
+  userId: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+  },
   lat: Number,
   lon: Number,
-  status: String
+  status: String,
 });
 
 var Item = mongoose.model('Item', itemSchema);
