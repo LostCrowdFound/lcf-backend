@@ -5,7 +5,10 @@ var requestSchema = mongoose.Schema({
   	date: Date,
   	status: String,
   	text: String,
-  	userMail: String
+  	userId: { 
+    	type: mongoose.Schema.ObjectId, 
+   		ref : 'user'
+   },
   	}],
    itemId: { 
    type: mongoose.Schema.ObjectId, 
