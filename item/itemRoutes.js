@@ -10,7 +10,7 @@ function itemRoutes(passport) {
   mw.unless = unless;
 
   //middleware
-  router.use(mw.unless({ method: ['POST', 'OPTIONS'] }));
+  router.use(mw.unless({ method: ['OPTIONS'] }));
 
   router.route('/items')
       .post(itemController.postItem)

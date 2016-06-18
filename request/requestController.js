@@ -1,9 +1,9 @@
-var Item = require('./itemSchema');
+var Request = require('./requestSchema');
 
-exports.postItem = function (req, res) {
-  var item = new Item(req.body);
+exports.postRequest = function (req, res) {
+  var request = new Request(req.body);
 
-  item.save(function (err, m) {
+  request.save(function (err, m) {
     if (err) {
       res.status(500).send(err);
       return;
@@ -13,15 +13,9 @@ exports.postItem = function (req, res) {
   });
 };
 
-function isPointInRadius(item, query) {
-  //console.log('is Point in radius item: ' + item);
-  //console.log('Query lat: ' + this.lat + ' lon: ' + this.lon + ' radius: ' + this.radius);
-  return true;
-}
-
 // Create endpoint /api/items for GET
-exports.getItems = function (req, res) {
-  Item.find({
+exports.getRequests = function (req, res) {
+  Request.find({
     type: req.query.type,
     brand: req.query.brand,
     name: req.query.name,
