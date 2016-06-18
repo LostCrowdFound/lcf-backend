@@ -2,7 +2,7 @@ module.exports = requestRoutes;
 
 function requestRoutes(passport) {
 
-  var itemController = require('./requestController');
+  var requestController = require('./requestController');
   var router = require('express').Router();
   var unless = require('express-unless');
 
@@ -10,14 +10,15 @@ function requestRoutes(passport) {
   mw.unless = unless;
 
   //middleware
-  router.use(mw.unless({ method: ['OPTIONS'] }));
+  //router.use(mw.unless({ method: ['OPTIONS'] }));
 
   router.route('/requests')
-      .post(requestController.postRequest)
-      .get(requestController.getRequest);
+      .post(requestController.postRequest);
 
-  router.route('/requests/:request_id')
-      .get(requestController.getRequest);
+  //.get(requestController.getRequest);
+
+  //router.route('/requests/:request_id')
+  //    .get(requestController.getRequest);
 
   return router;
 }

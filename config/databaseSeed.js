@@ -1,4 +1,5 @@
-var items = [
+
+exports.items = [
   {
     type: 'Smartphone',
     brand: 'Apple',
@@ -11,7 +12,7 @@ var items = [
   },
 ];
 
-var users = [
+exports.users = [
   {
     name: 'Soenke',
     email: 'soenke.erfkamp@tum.de',
