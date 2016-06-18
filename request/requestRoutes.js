@@ -2,7 +2,7 @@ module.exports = requestRoutes;
 
 function requestRoutes(passport) {
 
-  var itemController = require('./requestController');
+  var requestController = require('./requestController');
   var router = require('express').Router();
   var unless = require('express-unless');
 
