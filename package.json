@@ -32,6 +32,7 @@
     "express-unless": "^0.3.0",
     "jwt-simple": "^0.5.0",
     "mongoose": "^4.4.19",
+    "nodemailer": "^2.4.2",
     "passport": "^0.3.2",
     "passport-jwt": "^2.0.0"
   },
