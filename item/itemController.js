@@ -25,7 +25,7 @@ exports.getItems = function (req, res) {
     type: req.query.type,
     brand: req.query.brand,
     name: req.query.name,
-    date: { $gt: req.query.date },
+    date: { $gte: req.query.date },
   }, '_id lat lon', function (err, items) {
       if (err) {
         return res.status(500).send(err);

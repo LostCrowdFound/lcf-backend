@@ -28,7 +28,11 @@ module.exports.login = function (req, res) {
         res.status(401).send('Invalid Credentials');
       } else {
         console.log('Password matches!');
-        res.status(200).json({ token: createToken(user) });
+        res.status(200).json({
+          token: createToken(user),
+          userId: user._id,
+        });
+        console.log('User ID: ' + user._id);
       }
     });
   });
