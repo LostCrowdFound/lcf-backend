@@ -14,10 +14,6 @@ function requestRoutes(passport) {
 
   router.route('/requests')
       .post(requestController.postRequest)
-      .get(requestController.getRequest);
-
-  router.route('/requests/:request_id')
-      .get(requestController.getRequest);
 
   return router;
 }
