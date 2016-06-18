@@ -8,6 +8,7 @@ var itemSchema = mongoose.Schema({
   email: String,
   lat: Number,
   lon: Number,
+  status: String
 });
 
 var Item = mongoose.model('Item', itemSchema);

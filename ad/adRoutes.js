@@ -1,8 +1,8 @@
-module.exports = requestRoutes;
+module.exports = adRoutes;
 
-function requestRoutes(passport) {
+function adRoutes(passport) {
 
-  var requestController = require('./requestController');
+  var adController = require('./adController');
   var router = require('express').Router();
   var unless = require('express-unless');
 
@@ -12,8 +12,12 @@ function requestRoutes(passport) {
   //middleware
   router.use(mw.unless({ method: ['OPTIONS'] }));
 
-  router.route('/requests')
-      .post(requestController.postRequest)
+  router.route('/ads')
+      .post(adController.postAd)
+      .get(adController.getAds);
+
+  router.route('/ads/:ad_id')
+      .get(adController.getAd);
 
   return router;
 }

@@ -1,8 +1,8 @@
-module.exports = requestRoutes;
+module.exports = searchRoutes;
 
-function requestRoutes(passport) {
+function searchRoutes(passport) {
 
-  var requestController = require('./requestController');
+  var searchController = require('./searchController');
   var router = require('express').Router();
   var unless = require('express-unless');
 
@@ -12,8 +12,8 @@ function requestRoutes(passport) {
   //middleware
   router.use(mw.unless({ method: ['OPTIONS'] }));
 
-  router.route('/requests')
-      .post(requestController.postRequest)
+  router.route('/searchs')
+      .post(searchController.postSearch)
 
   return router;
 }
