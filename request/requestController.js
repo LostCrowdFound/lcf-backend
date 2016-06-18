@@ -1,91 +1,55 @@
-var Config = require('../config/config.js');
-var User = require('./userSchema');
-var jwt = require('jwt-simple');
+var Item = require('./itemSchema');
 
-module.exports.login = function (req, res) {
-  console.log('Trying to log in user: ' + req.body.username + 'pw:' + req.body.password);
+exports.postItem = function (req, res) {
+  var item = new Item(req.body);
 
-  if (!req.body.username) {
-    return res.status(400).send('username required');
-  }
-
-  if (!req.body.password) {
-    return res.status(400).send('password required');
-  }
-
-  User.findOne({ username: req.body.username }, function (err, user) {
+  item.save(function (err, m) {
     if (err) {
-      return res.status(500).send(err);
-    }
-
-    if (!user) {
-      res.status(400).send('Invalid Credentials');
+      res.status(500).send(err);
       return;
     }
 
-    user.comparePassword(req.body.password, function (err, isMatch) {
-      if (!isMatch || err) {
-        res.status(401).send('Invalid Credentials');
-      } else {
-        console.log('Password matches!');
-        res.status(200).json({ token: createToken(user) });
-      }
-    });
+    res.status(201).json(m);
   });
-
 };
 
-module.exports.signup = function (req, res) {
-  if (!req.body.username) {
-    return res.status(400).send('username required');
-  }
+function isPointInRadius(item, query) {
+  //console.log('is Point in radius item: ' + item);
+  //console.log('Query lat: ' + this.lat + ' lon: ' + this.lon + ' radius: ' + this.radius);
+  return true;
+}
 
-  if (!req.body.password) {
-    return res.status(400).send('password required');
-  }
+// Create endpoint /api/items for GET
+exports.getItems = function (req, res) {
+  Item.find({
+    type: req.query.type,
+    brand: req.query.brand,
+    name: req.query.name,
+    date: { $gt: req.query.date },
+  }, '_id lat lon', function (err, items) {
+      if (err) {
+        return res.status(500).send(err);
+      }
 
-  User.findOne({ username: req.body.username }, function (err, resUser) {
+      var filteredItems = items.filter(isPointInRadius, req.query);
 
+      console.log('Returning items: ' + items);
+      res.status(200).json(filteredItems);
+    }
+  );
+};
+
+// Create endpoint /api/items/:item_id for GET
+exports.getItem = function (req, res) {
+  // if (!req.user.equals(movie.user)) {
+  //       res.sendStatus(401);
+  // }
+
+  Item.findById(req.params.item_id, 'email', function (err, item) {
     if (err) {
       return res.status(500).send(err);
-    }
+    };
 
-    if (resUser) {
-      return res.status(401).send('Username already taken!');
-    } else {
-      var user = new User();
-
-      user.username = req.body.username;
-      user.password = req.body.password;
-      user.email = req.body.email;
-
-      user.save(function (err) {
-        if (err) {
-          res.status(500).send(err);
-          return;
-        }
-
-        res.status(201).json(); //{token: createToken(user)}
-      });
-    }
+    res.json(item);
   });
-};
-
-module.exports.unregister = function (req, res) {
-  req.user.remove().then(function (user) {
-    res.sendStatus(200); },
-
-    function (err) {
-      res.status(500).send(err);
-    });
-};
-
-function createToken(user) {
-  var tokenPayload = {
-    user: {
-      _id: user._id,
-      username: user.username,
-    },
-  };
-  return jwt.encode(tokenPayload, Config.auth.jwtSecret);
 };
