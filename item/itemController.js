@@ -3,6 +3,8 @@ var Item = require('./itemSchema');
 exports.postItem = function (req, res) {
   var item = new Item(req.body);
 
+  item.status = 'open';
+
   item.save(function (err, m) {
     if (err) {
       res.status(500).send(err);
