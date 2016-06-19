@@ -56,3 +56,13 @@ exports.postRequest = function (req, res) {
     });
   });
 };
+
+exports.resolveRequest = function (req, res) {
+    var requestId = req.params.request_id;
+
+  };
+
+exports.dismissRequest = function (req, res) {
+    var requestId = req.params.request_id;
+
+  };

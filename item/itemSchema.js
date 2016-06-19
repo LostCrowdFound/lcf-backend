@@ -12,6 +12,9 @@ var itemSchema = mongoose.Schema({
   lat: Number,
   lon: Number,
   status: String,
+  resolvedUser: { type: mongoose.Schema.ObjectId, ref: 'User' },
+  dismissedUser: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
+  currentUserRequests: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
 });
 
 var Item = mongoose.model('Item', itemSchema);

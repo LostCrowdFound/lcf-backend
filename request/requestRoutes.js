@@ -15,5 +15,11 @@ function requestRoutes(passport) {
   router.route('/requests')
       .post(requestController.postRequest);
 
+  router.route('/requests/resolve/:request_id')
+      .get(requestController.resolveRequest);
+
+  router.route('/requests/dismiss/:request_id')
+      .get(requestController.dismissRequest);
+
   return router;
 }
