@@ -1,4 +1,3 @@
-
 exports.items = [
   {
     type: 'Smartphone',
@@ -6,9 +5,8 @@ exports.items = [
     name: 'iPhone 5s',
     date: new Date().getTime(),
     email: 'soenke.erfkamp@tum.de',
-    lat: '55.55',
-    lon: '55.55',
-    radius: 2000,
+    lat: 48.1603975,
+    lon: 11.6558806,
   },
 ];
 
@@ -20,12 +18,17 @@ exports.users = [
   },
   {
     username: 'guest',
-    email: 'guest@tum.de',
+    email: 'soenke.erfkamp@tum.de',
     password: 'guest',
   },
   {
     username: 'admin',
-    email: 'admin@tum.de',
+    email: 'soenke.erfkamp@tum.de',
     password: 'admin',
+  },
+  {
+    username: 's',
+    email: 'soenke.erfkamp@tum.de',
+    password: 's',
   },
 ];

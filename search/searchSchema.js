@@ -4,12 +4,12 @@ var searchSchema = mongoose.Schema({
   type: String,
   brand: String,
   name: String,
-  radius: Double,
+  radius: Number,
   date: Date,
-  userId: { 
-    	type: mongoose.Schema.ObjectId, 
-   		ref : 'user'
-   },
+  userId: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'user',
+  },
   lat: Number,
   lon: Number,
 });

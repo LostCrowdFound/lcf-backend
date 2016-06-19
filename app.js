@@ -14,25 +14,22 @@ mongoose.connect([Config.db.host, '/', Config.db.name].join(''), {
     pass: Config.db.pass,
   }, function () {
 
-    //TO DO : DROP DATABASE
-
-    for (var u = 0; u < databaseSeed.users.length; u++) {
-      var tempUser = new User(databaseSeed.users[u]);
-      tempUser.save();
-    }
-
-    User.find(function (err, users) {
-      console.log('Creating users...');
-      Item.create(databaseSeed.items, function (err, items) {
-        console.log('Creating items...');
-        for (var i = 0; i < databaseSeed.items.length; i++) {
-          var randomUserIndex = Math.floor((Math.random() * databaseSeed.users.length));
-          Item.findByIdAndUpdate(items[i]._id, { $set: { userId: users[randomUserIndex] } }, function (err, item) {
-            if (err) return handleError(err);
+    if (Config.seedDB) {
+      mongoose.connection.db.dropDatabase(function (err) {
+          User.create(databaseSeed.users, function (err, users) {
+            if (err) return err;
+            Item.create(databaseSeed.items, function (err, items) {
+              for (var i = 0; i < databaseSeed.items.length; i++) {
+                var randomUserIndex = Math.floor((Math.random() * databaseSeed.users.length));
+                Item.findByIdAndUpdate(items[i]._id, { $set: { userId: users[randomUserIndex] } },
+                  function (err, item) {
+                  if (err) return err;
+                });
+              }
+            });
           });
-        }
-      });
-    });
+        });
+    }
   }
 );
 
@@ -53,9 +50,8 @@ var app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
-
 
 //passport
 
@@ -65,14 +61,13 @@ var jwtConfig = require('./passport/jwtConfig');
 app.use(passport.initialize());
 jwtConfig(passport);
 
-
 /**
  * routing
  */
 
-var userRoutes = require("./user/userRoutes");
-var itemRoutes = require("./item/itemRoutes");
-var requestRoutes = require("./request/requestRoutes");
+var userRoutes = require('./user/userRoutes');
+var itemRoutes = require('./item/itemRoutes');
+var requestRoutes = require('./request/requestRoutes');
 
 app.use('/api', itemRoutes(passport));
 app.use('/', userRoutes(passport));
