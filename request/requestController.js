@@ -16,7 +16,6 @@ exports.postRequest = function (req, res) {
 
   var request = new Request(req.body);
 
-  console.log(request);
   request.save(function (err, request) {
     if (err) {
       return res.status(500).send(err);
@@ -27,39 +26,80 @@ exports.postRequest = function (req, res) {
         .populate('userId')
         .exec(function (err, item) {
 
-          console.log(item);
+            console.log(item.currentUserRequests.indexOf(user._id));
 
-          var context = {
-            finderName: 'Peter',
-            loserName: user.username,
-            loserEmail: 'soenke.erfkamp@web.de',
-            resolveUrl: '',
-            dismissUrl: '',
-            description: request.comments[0].text,
-          };
+            if (item.currentUserRequests.indexOf(user._id) > -1
+              || item.dismissedUser.indexOf(user._id) > -1) {
 
-          templates.render('emailtemplate.html', context,
-              function (err, html, text) {
+              console.log('Removing request...');
+              Request.remove({ id: request._id }, function (err) {
+                if (err) {
+                  return res.status(500).send(err);
+                }
 
-              // Send email
-              transporter.sendMail({
-                  from: '"LostCrowdFound" <lostcrowdfound@googlemail.com>', // sender address
-                  to: user.email, // list of receivers
-                  subject: 'You have a new Request for an item you found!', // Subject line
-                  html: html, // html body
-                  text: text,
-                });
-            });
+                return res.status(403).send('Request already open or dismissed!');
+              });
+            } else {
 
-          res.status(201).json(request);
-        });
+              Item.findByIdAndUpdate(item._id, { $push: { currentUserRequests: user._id } }, function (err) {
+                if (err) {
+                  return res.status(500).send(err);
+                }
+
+                var context = {
+                  finderName: item.userId.username,
+                  loserName: ' ' + user.username,
+                  loserEmail: user.email,
+                  resolveUrl: 'http://localhost:9000/resolve/' + request._id,
+                  dismissUrl: 'http://localhost:9000/dismiss/' + request._id,
+                  description: request.comments[0].text,
+                };
+
+                templates.render('emailtemplate.html', context,
+                    function (err, html, text) {
+
+                    // Send email
+                    transporter.sendMail({
+                        from: '"LostCrowdFound" <lostcrowdfound@googlemail.com>', // sender address
+                        to: item.userId.email, // list of receivers
+                        subject: 'You have a new Request for an item you found!', // Subject line
+                        html: html, // html body
+                        text: text,
+                      });
+                  });
+
+                res.status(201).json(request);
+              });
+            }
+          });
     });
   });
 };
 
 exports.resolveRequest = function (req, res) {
     var requestId = req.params.request_id;
+    var userId = req.query.userId;
 
+    Request.findById(requestId, function (err, request) {
+      Item.findById(request.itemId, function (err, item) {
+        if (item.userId === userId) {
+          //resolve
+          Request.findByIdAndUpdate(requestId, { $set: { status: 'resolved' } }, function (err, request) {
+            if (err) {
+              return res.status(500).send(err);
+            }
+
+            Item.findByIdAndUpdate(item._id, { $set: { resolvedUser: userId } }, function (err, item) {
+              if (err) {
+                return res.status(500).send(err);
+              }
+            });
+
+            res.sendStatus(204);
+          });
+        }
+      });
+    });
   };
 
 exports.dismissRequest = function (req, res) {

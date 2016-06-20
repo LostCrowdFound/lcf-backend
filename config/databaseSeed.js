@@ -7,6 +7,7 @@ exports.items = [
     email: 'soenke.erfkamp@tum.de',
     lat: 48.1603975,
     lon: 11.6558806,
+    status: 'open',
   },
 ];
 
