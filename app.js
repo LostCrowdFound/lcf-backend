@@ -2,6 +2,7 @@ var Config = require('./config/config');
 var databaseSeed = require('./config/databaseSeed');
 var User = require('./user/userSchema');
 var Item = require('./item/itemSchema');
+var ItemInfo = require('./itemInfo/itemInfoSchema');
 
 /**
  * db connect
@@ -27,6 +28,9 @@ mongoose.connect([Config.db.host, '/', Config.db.name].join(''), {
                 });
               }
             });
+          });
+          ItemInfo.create(databaseSeed.itemInfo, function (err, itemInfo) {
+              if (err) return err;
           });
         });
     }

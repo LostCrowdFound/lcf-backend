@@ -18,9 +18,9 @@ exports.users = [
     password: 'muchpwverysecure',
   },
   {
-    username: 'guest',
+    username: 'gues',
     email: 'soenke.erfkamp@tum.de',
-    password: 'guest',
+    password: 'gues',
   },
   {
     username: 'admin',
@@ -33,6 +33,7 @@ exports.users = [
     password: 's',
   },
 ];
+
 
 exports.itemInfo =  [
 	{
