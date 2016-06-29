@@ -33,3 +33,14 @@ exports.users = [
     password: 's',
   },
 ];
+
+exports.itemInfo =  [
+	{
+  	   type: 'Smartphone',
+ 	   brands: [{ brand:  'Apple', models: ['Iphone 6','iphone 5']},{ brand:  'Samsung', models: ['Galaxsy','galx']}]
+	},
+	{
+   	   type: 'Jacket',
+   	   brands: [{ brand:  'Adidas', models: ['Sportjacke','Blazer']},{ brand:  'Puma', models: ['Regenjacke','mantel']}]
+	},
+];
