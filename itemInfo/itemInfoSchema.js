@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
 
 var itemInfoSchema = mongoose.Schema({
-	type: String,
+	type: {
+		    type: String,
+		    unique: true,
+		  },
 	brands: [{brand:  String, models: [String]}]	
 });
 
