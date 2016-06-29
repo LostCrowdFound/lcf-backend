@@ -40,6 +40,7 @@ module.exports.login = function (req, res) {
 };
 
 module.exports.signup = function (req, res) {
+  console.log('Trying to sign up user: ' + req.body.username);
   if (!req.body.username) {
     return res.status(400).send('username required');
   }

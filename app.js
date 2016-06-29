@@ -68,9 +68,11 @@ jwtConfig(passport);
 var userRoutes = require('./user/userRoutes');
 var itemRoutes = require('./item/itemRoutes');
 var requestRoutes = require('./request/requestRoutes');
+var adRoutes = require('./ad/adRoutes');
 
 app.use('/api', itemRoutes(passport));
 app.use('/', userRoutes(passport));
 app.use('/api', requestRoutes(passport));
+app.use('/api', adRoutes(passport));
 
 module.exports = app;

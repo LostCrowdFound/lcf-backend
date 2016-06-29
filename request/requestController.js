@@ -50,8 +50,8 @@ exports.postRequest = function (req, res) {
                   finderName: item.userId.username,
                   loserName: ' ' + user.username,
                   loserEmail: user.email,
-                  resolveUrl: 'http://localhost:9000/resolve/' + request._id,
-                  dismissUrl: 'http://localhost:9000/dismiss/' + request._id,
+                  resolveUrl: 'http://localhost:9000/#/resolveRequest/' + request._id,
+                  dismissUrl: 'http://localhost:9000/#/dismissRequest/' + request._id,
                   description: request.comments[0].text,
                 };
 
