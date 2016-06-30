@@ -16,10 +16,13 @@ function requestRoutes(passport) {
       .post(requestController.postRequest);
 
   router.route('/requests/resolve/:request_id')
-      .get(requestController.resolveRequest);
+      .post(requestController.resolveRequest);
 
   router.route('/requests/dismiss/:request_id')
-      .get(requestController.dismissRequest);
+      .post(requestController.dismissRequest);
+
+  router.route('/requests/:request_id')
+      .get(requestController.getRequest);
 
   return router;
 }

@@ -78,7 +78,7 @@ exports.postRequest = function (req, res) {
 
 exports.resolveRequest = function (req, res) {
     var requestId = req.params.request_id;
-    var userId = req.query.userId;
+    var userId = req.body.userId;
 
     Request.findById(requestId, function (err, request) {
       Item.findById(request.itemId, function (err, item) {
@@ -105,4 +105,19 @@ exports.resolveRequest = function (req, res) {
 exports.dismissRequest = function (req, res) {
     var requestId = req.params.request_id;
 
+  };
+
+exports.getRequest = function (req, res) {
+    // if (!req.user.equals(movie.user)) {
+    //       res.sendStatus(401);
+    // }
+    console.log('Get request: ' + req.params._id);
+
+    Item.findById(req.params.item_id, function (err, item) {
+      if (err) {
+        return res.status(500).send(err);
+      };
+
+      res.status(201).json(item);
+    });
   };

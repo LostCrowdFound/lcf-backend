@@ -35,11 +35,6 @@ function deg2rad(deg) {
 }
 
 function isPointInRadius(item, query) {
-  //console.log('----------------------------------------');
-  //console.log('is Point in radius item: ' + item);
-  //console.log('Query lat: ' + this.lat + ' lon: ' + this.lon + ' radius: ' + this.radius);
-  //console.log('Result distance: '+getDistanceFromLatLonInKm(this.lat, this.lon, item.lat, item.lon)+' vs radius: '+this.radius/1000);
-  //console.log('----------------------------------------');
   var distanceInkm = getDistanceFromLatLonInKm(this.lat, this.lon, item.lat, item.lon);
   if (distanceInkm < this.radius / 1000) {
     return true;
@@ -78,6 +73,6 @@ exports.getItem = function (req, res) {
       return res.status(500).send(err);
     };
 
-    res.json(item);
+    res.status(201).json(item);
   });
 };
