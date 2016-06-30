@@ -2,6 +2,7 @@ var Config = require('./config/config');
 var databaseSeed = require('./config/databaseSeed');
 var User = require('./user/userSchema');
 var Item = require('./item/itemSchema');
+var ItemInfo = require('./itemInfo/itemInfoSchema');
 
 /**
  * db connect
@@ -16,6 +17,9 @@ mongoose.connect([Config.db.host, '/', Config.db.name].join(''), {
 
     if (Config.seedDB) {
       mongoose.connection.db.dropDatabase(function (err) {
+          ItemInfo.create(databaseSeed.itemInfo, function (err, itemInfo) {
+            if (err) return err;
+          });
           User.create(databaseSeed.users, function (err, users) {
             if (err) return err;
             Item.create(databaseSeed.items, function (err, items) {
@@ -69,10 +73,13 @@ var userRoutes = require('./user/userRoutes');
 var itemRoutes = require('./item/itemRoutes');
 var requestRoutes = require('./request/requestRoutes');
 var adRoutes = require('./ad/adRoutes');
+var itemInfoRoutes = require('./itemInfo/itemInfoRoutes');
+
 
 app.use('/api', itemRoutes(passport));
 app.use('/', userRoutes(passport));
 app.use('/api', requestRoutes(passport));
 app.use('/api', adRoutes(passport));
+app.use('/api', itemInfoRoutes(passport));
 
 module.exports = app;
