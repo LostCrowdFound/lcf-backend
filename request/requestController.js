@@ -21,6 +21,11 @@ exports.postRequest = function (req, res) {
       return res.status(500).send(err);
     }
 
+    console.log('REQUEST DEBUG');
+    console.log(request);
+    console.log(request.comments);
+    console.log(request.comments[0].userId);
+
     User.findById(request.comments[0].userId, function (err, user) {
       Item.findById(request.itemId)
         .populate('userId')
@@ -77,26 +82,46 @@ exports.postRequest = function (req, res) {
 };
 
 exports.resolveRequest = function (req, res) {
+    console.log('Trying to resolve request...');
     var requestId = req.params.request_id;
     var userId = req.body.userId;
+    console.log('requestid: ' + requestId + '  user id : ' + userId);
 
     Request.findById(requestId, function (err, request) {
+      console.log('Found request..');
       Item.findById(request.itemId, function (err, item) {
-        if (item.userId === userId) {
+        console.log('Found item...');
+        console.log('Check for item.userId is userId :' + item.userId + ' userId: ' + userId);
+        if (item.userId.equals(userId)) {
+          console.log('check true!');
+
           //resolve
-          Request.findByIdAndUpdate(requestId, { $set: { status: 'resolved' } }, function (err, request) {
+          Request.findByIdAndUpdate(request._id, { $set: { status: 'resolved' } }, function (err, request) {
             if (err) {
               return res.status(500).send(err);
             }
 
-            Item.findByIdAndUpdate(item._id, { $set: { resolvedUser: userId } }, function (err, item) {
+            console.log(request);
+
+            console.log('updating request');
+
+            Item.findByIdAndUpdate(item._id,
+              { $set:
+                { resolvedUser: userId,
+                  status: 'resolved',
+                },
+            }, function (err, item) {
               if (err) {
                 return res.status(500).send(err);
               }
+
+              console.log('updating item');
             });
 
             res.sendStatus(204);
           });
+        } else {
+          console.log('check false');
         }
       });
     });
@@ -104,20 +129,21 @@ exports.resolveRequest = function (req, res) {
 
 exports.dismissRequest = function (req, res) {
     var requestId = req.params.request_id;
-
   };
 
 exports.getRequest = function (req, res) {
     // if (!req.user.equals(movie.user)) {
     //       res.sendStatus(401);
     // }
-    console.log('Get request: ' + req.params._id);
+    console.log('Get request: ' + req.params.request_id);
 
-    Item.findById(req.params.item_id, function (err, item) {
+    Request.findById(req.params.request_id, function (err, request) {
       if (err) {
         return res.status(500).send(err);
       };
 
-      res.status(201).json(item);
+      console.log('Return: ' + request);
+
+      res.status(201).json(request);
     });
   };

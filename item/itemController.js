@@ -68,7 +68,7 @@ exports.getItem = function (req, res) {
   //       res.sendStatus(401);
   // }
 
-  Item.findById(req.params.item_id, 'email', function (err, item) {
+  Item.findById(req.params.item_id, function (err, item) {
     if (err) {
       return res.status(500).send(err);
     };

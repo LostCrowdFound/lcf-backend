@@ -4,12 +4,12 @@ var requestSchema = mongoose.Schema({
     comments: [
       {
         date: Date,
-        status: String,
         text: String,
         userId: { type: mongoose.Schema.ObjectId, ref: 'User' },
       },
     ],
     itemId: { type: mongoose.Schema.ObjectId, ref: 'Item' },
+    status: String,
   });
 
 var Request = mongoose.model('Request', requestSchema);
