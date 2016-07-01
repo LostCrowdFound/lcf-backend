@@ -1,13 +1,9 @@
 var mongoose = require('mongoose');
 
 var requestSchema = mongoose.Schema({
-    comments: [
-      {
-        date: Date,
-        text: String,
-        userId: { type: mongoose.Schema.ObjectId, ref: 'User' },
-      },
-    ],
+    date: Date,
+    text: String,
+    userId: { type: mongoose.Schema.ObjectId, ref: 'User' },
     itemId: { type: mongoose.Schema.ObjectId, ref: 'Item' },
     status: String,
   });
