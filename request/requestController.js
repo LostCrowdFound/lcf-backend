@@ -102,7 +102,43 @@ exports.resolveRequest = function (req, res) {
   };
 
 exports.dismissRequest = function (req, res) {
+    console.log('Trying to dismiss request...');
     var requestId = req.params.request_id;
+    var userId = req.body.userId;
+
+    Request.findById(requestId, function (err, request) {
+      Item.findById(request.itemId, function (err, item) {
+        if (item.userId.equals(userId)) {
+
+          //resolve
+          Request.findByIdAndUpdate(request._id, { $set: { status: 'dismissed' } }, function (err, request) {
+            if (err) {
+              return res.status(500).send(err);
+            }
+
+            Item.findByIdAndUpdate(item._id,
+              { $push:
+                {
+                  dismissedUser: userId,
+                },
+                $pull:
+                {
+                  currentUserRequests: userId,
+                },
+              }, function (err) {
+              if (err) {
+                return res.status(500).send(err);
+              }
+
+            });
+
+            res.sendStatus(204);
+          });
+        } else {
+          return res.status(403).send('Forbidden. Wrong user logged in.');
+        }
+      });
+    });
   };
 
 exports.getRequest = function (req, res) {

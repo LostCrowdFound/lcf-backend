@@ -17,22 +17,23 @@ mongoose.connect([Config.db.host, '/', Config.db.name].join(''), {
 
     if (Config.seedDB) {
       mongoose.connection.db.dropDatabase(function (err) {
-          ItemInfo.create(databaseSeed.itemInfo, function (err, itemInfo) {
-            if (err) return err;
-          });
-          User.create(databaseSeed.users, function (err, users) {
-            if (err) return err;
-            Item.create(databaseSeed.items, function (err, items) {
-              for (var i = 0; i < databaseSeed.items.length; i++) {
-                var randomUserIndex = Math.floor((Math.random() * databaseSeed.users.length));
-                Item.findByIdAndUpdate(items[i]._id, { $set: { userId: users[randomUserIndex] } },
-                  function (err, item) {
-                  if (err) return err;
-                });
-              }
-            });
+        ItemInfo.create(databaseSeed.itemInfo, function (err, itemInfo) {
+          if (err) return err;
+        });
+
+        User.create(databaseSeed.users, function (err, users) {
+          if (err) return err;
+          Item.create(databaseSeed.items, function (err, items) {
+            for (var i = 0; i < databaseSeed.items.length; i++) {
+              var randomUserIndex = Math.floor((Math.random() * databaseSeed.users.length));
+              Item.findByIdAndUpdate(items[i]._id, { $set: { userId: users[randomUserIndex] } },
+                function (err, item) {
+                if (err) return err;
+              });
+            }
           });
         });
+      });
     }
   }
 );
@@ -74,7 +75,6 @@ var itemRoutes = require('./item/itemRoutes');
 var requestRoutes = require('./request/requestRoutes');
 var adRoutes = require('./ad/adRoutes');
 var itemInfoRoutes = require('./itemInfo/itemInfoRoutes');
-
 
 app.use('/api', itemRoutes(passport));
 app.use('/', userRoutes(passport));
