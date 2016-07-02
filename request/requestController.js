@@ -4,6 +4,7 @@ var Item = require('../item/itemSchema');
 var nodemailer = require('nodemailer');
 var EmailTemplates = require('swig-email-templates');
 var path = require('path');
+var config = require('../config/config');
 
 var transporter = nodemailer.createTransport
   ('smtps://lostcrowdfound%40gmail.com:lostcrowdfoundpw12@smtp.gmail.com');
@@ -38,11 +39,15 @@ exports.postRequest = function (req, res) {
 
             var context = {
               finderName: item.userId.username,
-              loserName: ' ' + user.username,
-              loserEmail: user.email,
+              searcherName: user.username,
+              searcherEmail: user.email,
               resolveUrl: 'http://localhost:9000/#/resolveRequest/' + request._id,
               dismissUrl: 'http://localhost:9000/#/dismissRequest/' + request._id,
               description: request.text,
+              requestType: 'Item Request',
+              itemType: item.type,
+              itemBrand: item.brand,
+              itemName: item.name,
             };
 
             templates.render('emailtemplate.html', context,
