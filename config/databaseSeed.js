@@ -2,7 +2,7 @@ exports.items = [
   {
     type: 'Smartphone',
     brand: 'Apple',
-    name: 'iPhone 5s',
+    name: 'iPhone 6 Series',
     date: new Date().getTime(),
     lat: 48.1603975,
     lon: 11.6558806,
@@ -11,7 +11,7 @@ exports.items = [
   {
     type: 'Smartphone',
     brand: 'Apple',
-    name: 'iPhone 5s',
+    name: 'iPhone 6 Series',
     date: new Date().getTime(),
     lat: 48.26245,
     lon: 11.66917,
@@ -20,8 +20,8 @@ exports.items = [
     {
     type: 'Smartphone',
     brand: 'Apple',
-    name: 'iPhone 5s',
-    date: new Date().getTime()-(8,64e+7),
+    name: 'iPhone 6 Series',
+    date: new Date().getTime() - (8, 64e+7),
     lat: 48.26243,
     lon: 11.66831,
     status: 'open',
@@ -29,8 +29,8 @@ exports.items = [
     {
     type: 'Smartphone',
     brand: 'Apple',
-    name: 'Iphone 6',
-    date: new Date().getTime()-(8,64e+7),
+    name: 'iPhone 6 Series',
+    date: new Date().getTime() - (8, 64e+7),
     lat: 48.26253,
     lon: 11.66693,
     status: 'open',
@@ -38,8 +38,8 @@ exports.items = [
     {
     type: 'Smartphone',
     brand: 'Apple',
-    name: 'Iphone 6',
-    date: new Date().getTime()-(8,64e+7),
+    name: 'iPhone 6 Series',
+    date: new Date().getTime() - (8, 64e+7),
     lat: 48.26290,
     lon: 11.66775,
     status: 'open',
@@ -47,8 +47,8 @@ exports.items = [
     {
     type: 'Smartphone',
     brand: 'Samsung',
-    name: 'Galaxsy',
-    date: new Date().getTime()-(8,64e+7),
+    name: 'Galaxy S Series',
+    date: new Date().getTime() - (8, 64e+7),
     lat: 48.1603975,
     lon: 11.6558806,
     status: 'open',
@@ -56,8 +56,8 @@ exports.items = [
     {
     type: 'Smartphone',
     brand: 'Samsung',
-    name: 'Galaxsy',
-    date: new Date().getTime()-(8,64e+7),
+    name: 'Galaxy S Series',
+    date: new Date().getTime() - (8, 64e+7),
     lat: 48.26338,
     lon: 11.66920,
     status: 'open',
@@ -123,18 +123,17 @@ exports.users = [
   },
 ];
 
-
 exports.itemInfo =  [
      {
           type: 'Smartphone',
-         brands: [{ brand:  'Apple', models: ['iPhone 6 Series','iPhone 5 Series','Other']},{ brand:  'Samsung', models: ['Galaxy S Series','Galaxy J Series','Other']}, { brand:  'Other', models: ['Other']}]
-     },
+          brands: [{ brand:  'Apple', models: ['iPhone 6 Series', 'iPhone 5 Series', 'Other'] }, { brand:  'Samsung', models: ['Galaxy S Series', 'Galaxy J Series', 'Other'] }, { brand:  'Other', models: ['Other'] }],
+        },
      {
-           type: 'Tablet',
-           brands: [{ brand:  'Dell', models: ['Venue Series','Latidude Series', 'Insprion Series', 'XPS Series','Other']},{ brand:  'Microsoft', models: ['Surface Pro','Surface Pro 2', 'Surface Pro 3', 'Surface Pro 4','Other']}, { brand:  'Otehr', models: ['Other']}]
-     },
+          type: 'Tablet',
+          brands: [{ brand:  'Dell', models: ['Venue Series', 'Latidude Series', 'Insprion Series', 'XPS Series', 'Other'] }, { brand:  'Microsoft', models: ['Surface Pro', 'Surface Pro 2', 'Surface Pro 3', 'Surface Pro 4', 'Other'] }, { brand:  'Otehr', models: ['Other'] }],
+        },
           {
-           type: 'Laptop',
-           brands: [{ brand:  'Dell', models: ['Latitude E5 Series','Latitude E5 Series','Latitude E5 Series','Other']},{ brand:  'Lenovo', models: ['Thinpad Series','ideapad Series','Other']}, { brand:  'Otehr', models: ['Other']}]
+          type: 'Laptop',
+          brands: [{ brand:  'Dell', models: ['Latitude E5 Series', 'Latitude E5 Series', 'Latitude E5 Series', 'Other'] }, { brand:  'Lenovo', models: ['Thinpad Series', 'ideapad Series','Other']}, { brand:  'Otehr', models: ['Other']}]
      },
  ];
