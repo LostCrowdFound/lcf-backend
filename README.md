@@ -1,1 +1,1 @@
-# LostCrowdFound [![Build Status](https://travis-ci.org/LostCrowdFound/LostCrowdFound.svg?branch=master)](https://travis-ci.org/LostCrowdFound/LostCrowdFound)
+# LostCrowdFound [![Build Status](https://travis-ci.org/LostCrowdFound/lcf-backend.svg?branch=master)](https://travis-ci.org/LostCrowdFound/lcf-backend)

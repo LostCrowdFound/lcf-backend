@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LostCrowdFound/LostCrowdFound.git"
+    "url": "git+https://github.com/LostCrowdFound/lcf-backend.git"
   },
   "author": "Sönke Erfkamp, Moritz Pfeiffer, Florian Ruppert, Julien Schmidt",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/LostCrowdFound/LostCrowdFound/issues"
+    "url": "https://github.com/LostCrowdFound/lcf-backend/issues"
   },
-  "homepage": "https://github.com/LostCrowdFound/LostCrowdFound#readme",
+  "homepage": "https://github.com/LostCrowdFound/lcf-backend#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.1",
