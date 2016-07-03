@@ -9,7 +9,8 @@ var ItemInfo = require('./itemInfo/itemInfoSchema');
  */
 
 var mongoose = require('mongoose');
-mongoose.connect([Config.db.host, '/', config.db.name].join(''), {
+mongoose.Promise = global.Promise; // use native promises
+mongoose.connect([config.db.host, '/', config.db.name].join(''), {
     //eventually it's a good idea to make this secure
     user: config.db.user,
     pass: config.db.pass,
