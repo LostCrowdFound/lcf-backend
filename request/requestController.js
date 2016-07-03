@@ -22,8 +22,8 @@ exports.postRequest = function (req, res) {
       .populate('userId')
       .exec(function (err, item) {
         console.log(item.currentUserRequests.indexOf(user._id));
-        if (item.currentUserRequests.indexOf(user._id) > -1
-          || item.dismissedUser.indexOf(user._id) > -1) {
+        if (item.currentUserRequests.indexOf(user._id) > -1 ||
+            item.dismissedUser.indexOf(user._id) > -1) {
           return res.status(403).send('Request already open or dismissed!');
         } else {
           request.save(function (err, request) {
@@ -150,7 +150,7 @@ exports.getRequest = function (req, res) {
     Request.findById(req.params.request_id, function (err, request) {
       if (err) {
         return res.status(500).send(err);
-      };
+      }
 
       res.status(201).json(request);
     });

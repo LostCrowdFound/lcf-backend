@@ -11,7 +11,7 @@ const jshintConfig = {
 };
 
 gulp.task("lint", function() {
-    return gulp.src(["*.js", "config/*.json", "config/*.js", "client/*.js", "server/*.js, server/*/*.js"])
+    return gulp.src(["*.js", "ad/*.js", "config/*.json", "config/*.js", "item/*.js", "itemInfo/*.js", "passport/*.js", "request/*.js", "search/*.js", "user/*.js"])
         .pipe(cache("linting"))
         .pipe(jshint(jshintConfig))
         .pipe(jshint.reporter("jshint-stylish"))

@@ -35,7 +35,7 @@ exports.getAd = function (req, res) {
   Ad.findById(req.params.ad_id, 'email', function (err, ad) {
     if (err) {
       return res.status(500).send(err);
-    };
+    }
 
     res.json(ad);
   });

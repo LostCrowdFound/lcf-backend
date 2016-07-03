@@ -13,7 +13,7 @@ function searchRoutes(passport) {
   router.use(mw.unless({ method: ['OPTIONS'] }));
 
   router.route('/searchs')
-      .post(searchController.postSearch)
+      .post(searchController.postSearch);
 
   return router;
 }

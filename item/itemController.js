@@ -71,7 +71,7 @@ exports.getItem = function (req, res) {
   Item.findById(req.params.item_id, function (err, item) {
     if (err) {
       return res.status(500).send(err);
-    };
+    }
 
     res.status(201).json(item);
   });

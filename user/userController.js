@@ -93,4 +93,4 @@ function createToken(user) {
     },
   };
   return jwt.encode(tokenPayload, Config.auth.jwtSecret);
-};
+}
