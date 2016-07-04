@@ -2,8 +2,15 @@ var mongoose = require('mongoose');
 
 var adSchema = mongoose.Schema({
   type: String,
-  date: Date,
-  imgPath: String,
+  header: String,
+  body: String,
+  target: String,
+  keywords: [String],
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+  },
+  views: Number,
   status: String
 });
 
