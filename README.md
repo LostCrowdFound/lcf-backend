@@ -7,6 +7,10 @@ npm install
 
 ## Build & development
 
+Start MongoDB:
+  Windows: Navigate to your MongoDB folder and run: `mongod`.
+  MacOS: `brew services start mongodb`.
+
 Run `npm start` to run the backend server.
 
 ## Testing
