@@ -1,7 +1,9 @@
-var Item = require('./itemSchema');
+const Item = require('./itemSchema');
+const csv = require('csv-streamify');
+const stream = require('stream');
 
 exports.postItem = function (req, res) {
-  var item = new Item(req.body);
+  const item = new Item(req.body);
 
   item.status = 'open';
 
@@ -64,10 +66,6 @@ exports.getItems = function (req, res) {
 
 // Create endpoint /api/items/:item_id for GET
 exports.getItem = function (req, res) {
-  // if (!req.user.equals(movie.user)) {
-  //       res.sendStatus(401);
-  // }
-
   Item.findById(req.params.item_id, function (err, item) {
     if (err) {
       return res.status(500).send(err);
@@ -75,4 +73,78 @@ exports.getItem = function (req, res) {
 
     res.status(201).json(item);
   });
+};
+
+// Create endpoint /api/items/import for POST
+exports.postImport = function (req, res) {
+  if(!req.file || req.file.fieldname !== 'csv-file') {
+    res.sendStatus(400);
+    return;
+  }
+
+  const parser = csv({ objectMode: true }, function (err, result) {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }
+
+    // our csv has been parsed succesfully
+    let items = [];
+    let failed = [];
+
+    result.forEach(function (o) {
+      if (o.length !== 6) {
+        // skip incomplete lines
+        failed.push(o.join(','));
+        return;
+      }
+
+      if (o[0] === 'type') {
+        return; // skip header
+      }
+
+      try {
+        // try to parse strings
+        let date = new Date(o[3]);
+        let lat = Number(o[4]);
+        let lon = Number(o[5]);
+
+        // validate
+        if(isNaN(date.getTime()) || isNaN(lat) || isNaN(lon)) {
+          ailed.push(o.join(','));
+          return;
+        }
+
+        // form item object
+        items.push({
+          type: o[0],
+          brand: o[1],
+          name: o[2],
+          date: date,
+          userId: req.user._id,
+          lat: lat,
+          lon: lon,
+          status: 'new',
+        });
+      } catch(up) {
+        failed.push(o.join(','));
+        return;
+      }
+    });
+
+    // return invalid lines
+    if(failed.length > 0) {
+      res.status(500).json(failed);
+      return;
+    }
+
+    Item.collection.insert(items);
+    res.sendStatus(200);
+  });
+
+  // buffer to stream
+  let bufferStream = new stream.PassThrough();
+  bufferStream.end(req.file.buffer);
+  bufferStream.pipe(parser);
 };
