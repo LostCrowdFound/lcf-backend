@@ -10,7 +10,7 @@ exports.postAd = function (req, res) {
   }
 
   // split keyword list to array
-  raw.keywords = raw.keywords.split(',').map(function(s) { return s.trim() });
+  raw.keywords = raw.keywords.split(',').map(function(s) { return s.trim(); });
 
   // add http prefix if necessary
   if(raw.target.slice(0,4) !== 'http') {
