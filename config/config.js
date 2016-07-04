@@ -11,6 +11,6 @@ Config.app.port = process.env.PORT || 3000;
 
 Config.auth.jwtSecret = 'very secret secret';
 
-Config.seedDB = true;
+Config.seedDB = false;
 
 module.exports = Config;
