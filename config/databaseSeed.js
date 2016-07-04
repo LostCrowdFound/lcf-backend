@@ -102,24 +102,24 @@ exports.items = [
 
 exports.users = [
   {
-    username: 'Soenke',
-    email: 'soenke.erfkamp@tum.de',
-    password: 'muchpwverysecure',
+    username: 'Sönke',
+    email: 'soenke.erfkamp@web.de',
+    password: 'pw',
   },
   {
-    username: 'guest',
+    username: 'Julien',
     email: 'soenke.erfkamp@tum.de',
-    password: 'guest',
+    password: 'pw',
   },
   {
-    username: 'admin',
+    username: 'Moritz',
     email: 'soenke.erfkamp@tum.de',
-    password: 'admin',
+    password: 'pw',
   },
   {
-    username: 's',
+    username: 'Florian',
     email: 'soenke.erfkamp@tum.de',
-    password: 's',
+    password: 'pw',
   },
 ];
 
