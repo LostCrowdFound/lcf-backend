@@ -50,7 +50,7 @@ exports.postRequest = function (req, res) {
               itemName: item.name,
             };
 
-            templates.render('emailtemplate.html', context,
+            templates.render('request.html', context,
                 function (err, html, text) {
 
                 // Send email
@@ -134,6 +134,34 @@ exports.dismissRequest = function (req, res) {
               if (err) {
                 return res.status(500).send(err);
               }
+
+              User.findById(userId, function (err, user) {
+
+                var context = {
+                  searcherName: user.username,
+                  searcherEmail: user.email,
+                  description: request.text,
+                  requestType: 'Request dismissed',
+                  itemType: item.type,
+                  itemBrand: item.brand,
+                  itemName: item.name,
+                };
+
+                console.log('Sending dismiss email...');
+
+                templates.render('dismiss.html', context,
+                    function (err, html, text) {
+
+                    // Send email
+                    transporter.sendMail({
+                        from: '"LostCrowdFound" <lostcrowdfound@googlemail.com>', // sender address
+                        to: user.email,
+                        subject: 'One of your requests got dismissed!', // Subject line
+                        html: html, // html body
+                        text: text,
+                      });
+                  });
+              });
 
             });
 
