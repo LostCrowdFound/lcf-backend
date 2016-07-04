@@ -11,7 +11,7 @@ var adSchema = mongoose.Schema({
     ref: 'User',
   },
   views: Number,
-  status: String
+  status: String,
 });
 
 var Ad = mongoose.model('Ad', adSchema);

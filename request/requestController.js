@@ -21,7 +21,6 @@ exports.postRequest = function (req, res) {
     Item.findById(request.itemId)
       .populate('userId')
       .exec(function (err, item) {
-        console.log(item.currentUserRequests.indexOf(user._id));
         if (item.currentUserRequests.indexOf(user._id) > -1 ||
             item.dismissedUser.indexOf(user._id) > -1) {
           return res.status(403).send('Request already open or dismissed!');
@@ -71,7 +70,6 @@ exports.postRequest = function (req, res) {
 };
 
 exports.resolveRequest = function (req, res) {
-    console.log('Trying to resolve request...');
     var requestId = req.params.request_id;
     var userId = req.body.userId;
 
@@ -107,7 +105,6 @@ exports.resolveRequest = function (req, res) {
   };
 
 exports.dismissRequest = function (req, res) {
-    console.log('Trying to dismiss request...');
     var requestId = req.params.request_id;
     var userId = req.body.userId;
 
@@ -146,8 +143,6 @@ exports.dismissRequest = function (req, res) {
                   itemBrand: item.brand,
                   itemName: item.name,
                 };
-
-                console.log('Sending dismiss email...');
 
                 templates.render('dismiss.html', context,
                     function (err, html, text) {

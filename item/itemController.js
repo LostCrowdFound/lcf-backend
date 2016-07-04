@@ -58,7 +58,6 @@ exports.getItems = function (req, res) {
 
       var filteredItems = items.filter(isPointInRadius, req.query);
 
-      console.log('Returning items: ' + filteredItems);
       res.status(200).json(filteredItems);
     }
   );

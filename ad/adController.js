@@ -2,7 +2,7 @@ var Ad = require('./adSchema');
 
 exports.postAd = function (req, res) {
   let raw = req.body;
-  if(!raw.header || !raw.body || !raw.target || !raw.keywords ||
+  if (!raw.header || !raw.body || !raw.target || !raw.keywords ||
       raw.header.length < 1 || raw.body.length < 1 ||
       raw.target.length < 1 || raw.keywords.length < 1) {
     res.sendStatus(400);
@@ -10,10 +10,10 @@ exports.postAd = function (req, res) {
   }
 
   // split keyword list to array
-  raw.keywords = raw.keywords.split(',').map(function(s) { return s.trim(); });
+  raw.keywords = raw.keywords.split(',').map(function (s) { return s.trim(); });
 
   // add http prefix if necessary
-  if(raw.target.slice(0,4) !== 'http') {
+  if (raw.target.slice(0, 4) !== 'http') {
     raw.target = 'http://' + raw.target;
   }
 
@@ -25,7 +25,7 @@ exports.postAd = function (req, res) {
     keywords: raw.keywords,
     owner: req.user._id,
     views: 0,
-    status: 'new'
+    status: 'new',
   });
 
   ad.save(function (err, ad) {
@@ -41,11 +41,11 @@ exports.postAd = function (req, res) {
 // Create endpoint /api/ads for GET
 exports.getAds = function (req, res) {
   Ad.find({
-    keywords: { $in : [
+    keywords: { $in: [
       req.query.type,
       req.query.brand,
-      req.query.name
-    ] },
+      req.query.name,
+    ], },
   }, function (err, ads) {
       if (err) {
         return res.status(500).send(err);

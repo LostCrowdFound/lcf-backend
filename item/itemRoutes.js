@@ -4,8 +4,8 @@ var multer  = require('multer');
 var upload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 64*1024,
-  }
+    fileSize: 64 * 1024,
+  },
 });
 
 function itemRoutes(passport) {

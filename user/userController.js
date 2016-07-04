@@ -3,7 +3,6 @@ var User = require('./userSchema');
 var jwt = require('jwt-simple');
 
 module.exports.login = function (req, res) {
-  console.log('Trying to log in user: ' + req.body.username + 'pw:' + req.body.password);
 
   if (!req.body.username) {
     return res.status(400).send('username required');
@@ -27,12 +26,10 @@ module.exports.login = function (req, res) {
       if (!isMatch || err) {
         res.status(401).send('Invalid Credentials');
       } else {
-        console.log('Password matches!');
         res.status(200).json({
           token: createToken(user),
           userId: user._id,
         });
-        console.log('User ID: ' + user._id);
       }
     });
   });
@@ -40,7 +37,6 @@ module.exports.login = function (req, res) {
 };
 
 module.exports.signup = function (req, res) {
-  console.log('Trying to sign up user: ' + req.body.username);
   if (!req.body.username) {
     return res.status(400).send('username required');
   }

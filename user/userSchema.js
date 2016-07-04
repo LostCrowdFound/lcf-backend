@@ -14,7 +14,7 @@ var userSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
-  }
+  },
 });
 
 userSchema.pre('save', function (next) {
@@ -44,11 +44,11 @@ userSchema.pre('save', function (next) {
 });
 
 userSchema.methods.comparePassword = function (candidatePassword, cb) {
-  console.log('Compares passwords...');
   bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
     if (err) {
       return cb(err);
     }
+
     cb(null, isMatch);
   });
 };
