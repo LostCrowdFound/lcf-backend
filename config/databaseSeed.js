@@ -130,10 +130,10 @@ exports.itemInfo =  [
         },
      {
           type: 'Tablet',
-          brands: [{ brand:  'Dell', models: ['Venue Series', 'Latidude Series', 'Insprion Series', 'XPS Series', 'Other'] }, { brand:  'Microsoft', models: ['Surface Pro', 'Surface Pro 2', 'Surface Pro 3', 'Surface Pro 4', 'Other'] }, { brand:  'Other', models: ['Other'] }],
+          brands: [{ brand:  'Dell', models: ['Venue Series', 'Latitude Series', 'Inspiron Series', 'XPS Series', 'Other'] }, { brand:  'Microsoft', models: ['Surface Pro', 'Surface Pro 2', 'Surface Pro 3', 'Surface Pro 4', 'Other'] }, { brand:  'Other', models: ['Other'] }],
         },
           {
           type: 'Laptop',
-          brands: [{ brand:  'Dell', models: ['Latitude E5 Series', 'Latitude E5 Series', 'Latitude E5 Series', 'Other'] }, { brand:  'Lenovo', models: ['Thinpad Series', 'ideapad Series', 'Other'] }, { brand:  'Other', models: ['Other'] }],
+          brands: [{ brand:  'Dell', models: ['Latitude E5 Series', 'Latitude E5 Series', 'Latitude E5 Series', 'Other'] }, { brand:  'Lenovo', models: ['Thinkpad Series', 'Ideapad Series', 'Other'] }, { brand:  'Other', models: ['Other'] }],
         },
  ];
