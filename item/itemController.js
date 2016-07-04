@@ -77,7 +77,7 @@ exports.getItem = function (req, res) {
 
 // Create endpoint /api/items/import for POST
 exports.postImport = function (req, res) {
-  if(!req.file || req.file.fieldname !== 'csv-file') {
+  if (!req.file || req.file.fieldname !== 'csv-file') {
     res.sendStatus(400);
     return;
   }
@@ -111,7 +111,7 @@ exports.postImport = function (req, res) {
         let lon = Number(o[5]);
 
         // validate
-        if(isNaN(date.getTime()) || isNaN(lat) || isNaN(lon)) {
+        if (isNaN(date.getTime()) || isNaN(lat) || isNaN(lon)) {
           ailed.push(o.join(','));
           return;
         }
@@ -125,16 +125,16 @@ exports.postImport = function (req, res) {
           userId: req.user._id,
           lat: lat,
           lon: lon,
-          status: 'new',
+          status: 'open',
         });
-      } catch(up) {
+      } catch (up) {
         failed.push(o.join(','));
         return;
       }
     });
 
     // return invalid lines
-    if(failed.length > 0) {
+    if (failed.length > 0) {
       res.status(500).json(failed);
       return;
     }
