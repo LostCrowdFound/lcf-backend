@@ -11,38 +11,42 @@ var ItemInfo = require('./itemInfo/itemInfoSchema');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise; // use native promises
 mongoose.connect([config.db.host, '/', config.db.name].join(''), {
-    //eventually it's a good idea to make this secure
-    user: config.db.user,
-    pass: config.db.pass,
-  }, function () {
-    if (config.seedDB) {
-      mongoose.connection.db.dropDatabase(function (err) {
-        ItemInfo.create(databaseSeed.itemInfo, function (err, itemInfo) {
-          if (err) {
-            return err;
-          }
-        });
+  //eventually it's a good idea to make this secure
+  user: config.db.user,
+  pass: config.db.pass,
+}, function () {
+  if (config.seedDB) {
+    mongoose.connection.db.dropDatabase(function (err) {
+      ItemInfo.create(databaseSeed.itemInfo, function (err, itemInfo) {
+        if (err) {
+          return err;
+        }
+      });
 
-        User.create(databaseSeed.users, function (err, users) {
-          if (err) {
-            return err;
-          }
-          Item.create(databaseSeed.items, function (err, items) {
-            for (var i = 0; i < databaseSeed.items.length; i++) {
-              var randomUserIndex = Math.floor((Math.random() * databaseSeed.users.length));
-              Item.findByIdAndUpdate(items[i]._id, { $set: { userId: users[randomUserIndex] } },
-                function (err, item) {
+      User.create(databaseSeed.users, function (err, users) {
+        if (err) {
+          return err;
+        }
+        Item.create(databaseSeed.items, function (err, items) {
+          for (var i = 0; i < databaseSeed.items.length; i++) {
+            var randomUserIndex = Math.floor((Math.random() * databaseSeed.users.length));
+            Item.findByIdAndUpdate(items[i]._id, {
+                $set: {
+                  userId: users[randomUserIndex]
+                }
+              },
+              function (err, item) {
                 if (err) {
                   return err;
                 }
               });
-            }
-          });
+          }
         });
       });
-    }
+    });
+    console.log('Database successfully seeded..');
   }
-);
+});
 
 /**
  * create application
